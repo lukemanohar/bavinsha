@@ -1,0 +1,128 @@
+.gate {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
+  overflow: auto;
+  background: var(--color-ivory);
+  color: var(--color-ink);
+}
+
+.inner {
+  display: flex;
+  width: min(100% - 3rem, 32rem);
+  min-height: 100svh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.kicker,
+.copy p,
+.label,
+.submit,
+.error {
+  font-family: var(--font-sans);
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-editorial-label);
+  line-height: var(--lh-caption);
+  text-transform: uppercase;
+}
+
+.kicker {
+  margin: 0 0 2rem;
+  color: var(--color-ink-muted);
+}
+
+.photo {
+  display: block;
+  width: clamp(165px, 16vw, 185px);
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: center;
+  border: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent);
+  border-radius: 50%;
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--color-ink) 10%, transparent);
+}
+
+.copy h1 {
+  margin: 2.25rem 0 0.6rem;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  font-weight: var(--fw-regular);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.copy p {
+  margin: 0;
+  color: var(--color-ink-muted);
+  font-size: 0.625rem;
+}
+
+.form {
+  display: grid;
+  width: min(100%, 18rem);
+  justify-items: center;
+  margin-top: 3rem;
+}
+
+.label {
+  width: 100%;
+  color: var(--color-ink-muted);
+  font-size: 0.625rem;
+  text-align: left;
+  text-transform: none;
+}
+
+.input {
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 0.65rem 0 0.55rem;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 35%, transparent);
+  outline: 0;
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  text-align: center;
+  background: transparent;
+}
+
+.input:focus { border-bottom-color: var(--color-gold); }
+
+.submit {
+  margin-top: 1.45rem;
+  padding: 0.6rem 0.1rem 0.55rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 45%, transparent);
+  color: var(--color-ink);
+  background: transparent;
+  cursor: pointer;
+  transition: color 250ms ease, border-color 250ms ease;
+}
+
+.submit:hover,
+.submit:focus-visible { border-color: var(--color-gold); color: var(--color-gold); }
+
+.error {
+  min-height: 1.3em;
+  margin: 0.8rem 0 0;
+  color: var(--color-ink-muted);
+  font-size: 0.6rem;
+  opacity: 0;
+  text-transform: none;
+  transition: opacity 300ms ease;
+}
+
+.errorVisible { opacity: 1 !important; }
+
+@media (max-width: 767px) {
+  .inner { width: min(100% - 3rem, 24rem); padding: 2.5rem 0; }
+  .photo { width: min(44vw, 175px); }
+  .copy h1 { margin-top: 1.75rem; }
+  .form { width: min(100%, 17rem); margin-top: 2.25rem; }
+}

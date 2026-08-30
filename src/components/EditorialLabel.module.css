@@ -1,0 +1,9 @@
+.label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-editorial-label);
+  letter-spacing: var(--ls-editorial-label);
+  line-height: var(--lh-editorial-label);
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  color: var(--color-gold);
+}

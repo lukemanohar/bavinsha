@@ -1,0 +1,82 @@
+/*
+  Sec. 1.2 explicitly calls out nav as the example for this rule: "If a
+  translucent surface is needed (e.g. nav), use a hairline border + 90%
+  opaque solid fill, not frosted blur." No backdrop-filter/blur anywhere
+  below. Border-radius stays at or under 2px per that same section's
+  "never rounded above 2px" rule.
+*/
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  z-index: 45;
+  opacity: 0;
+  padding: var(--space-2) var(--space-4);
+  /* Milestone 17 polish: a plain fallback declared before the color-mix()
+     version below — CSS ignores individual invalid declarations rather
+     than the whole rule, so a browser without color-mix() support (a
+     genuinely recent feature) still gets a solid, legible background
+     instead of losing the fill entirely; a browser that does support it
+     overrides with the intended 90%-opacity version. This is the one
+     color-mix() usage in the project judged worth a fallback — it's the
+     only one where losing it would hurt text legibility rather than
+     just softening a decorative accent. */
+  background-color: var(--color-black);
+  background-color: color-mix(in srgb, var(--color-black) 90%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  transition:
+    transform 0.5s ease,
+    opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.navVisible {
+  transform: translate(-50%, var(--space-3));
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.list {
+  display: flex;
+  gap: var(--space-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+  background: none;
+  border: none;
+  padding: var(--space-1) var(--space-2);
+  cursor: pointer;
+  color: var(--color-muted);
+}
+
+.linkNumber {
+  font-family: var(--font-sans);
+  font-size: var(--fs-nav);
+  letter-spacing: var(--ls-nav);
+  line-height: var(--lh-nav);
+  color: var(--color-gold);
+}
+
+.linkLabel {
+  font-family: var(--font-sans);
+  font-size: var(--fs-nav);
+  letter-spacing: var(--ls-nav);
+  line-height: var(--lh-nav);
+  text-transform: uppercase;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+.linkActive .linkLabel,
+.link:hover .linkLabel {
+  color: var(--color-white);
+}

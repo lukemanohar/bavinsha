@@ -1,0 +1,474 @@
+/*
+  A deliberate, documented exception to the site's locked 7-color
+  palette (design-blueprint.md Sec. 2): the phone SCREEN below recreates
+  a real external app's actual dark-mode colors (Instagram's own near-
+  black background, gray received bubbles, blue sent bubbles), the same
+  way an embedded photograph would carry its own colors distinct from
+  the site's UI chrome. The phone BEZEL, by contrast, stays strictly
+  within the locked palette, since that part IS this site's own design
+  language framing the recreated content.
+*/
+
+.section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-black);
+  padding: var(--space-8) var(--grid-margin-desktop);
+}
+
+/* When used as Story Two's media, the conversation fills that image panel
+   instead of claiming its own full-height chapter beat. */
+.embedded {
+  position: absolute;
+  inset: 0;
+  min-height: 0;
+  padding: var(--space-4);
+  overflow: hidden;
+}
+
+.embedded .phoneFrame {
+  width: auto;
+  height: 68%;
+  max-width: 100%;
+  max-height: 100%;
+  flex: 0 1 auto;
+}
+
+/* ---------------------------------------------------------------------
+   PhoneFrame — site chrome, locked palette only
+--------------------------------------------------------------------- */
+.phoneFrame {
+  position: relative;
+  width: min(360px, 100%);
+  aspect-ratio: 9 / 19.5;
+  background-color: var(--color-black);
+  border: 1px solid color-mix(in srgb, var(--color-gold) 35%, transparent);
+  border-radius: 36px;
+  box-shadow: 0 0 60px color-mix(in srgb, var(--color-black) 80%, transparent);
+  overflow: hidden;
+  padding: 10px;
+}
+
+.phoneNotch {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 18px;
+  background-color: var(--color-black);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  z-index: 3;
+}
+
+.phoneHomeIndicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  border-radius: 2px;
+  background-color: color-mix(in srgb, var(--color-gold) 50%, transparent);
+  z-index: 3;
+}
+
+.phoneScreenWindow {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 26px;
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------------
+   Screen content — Instagram's own authentic dark-mode colors, kept as
+   plain hex here (not tokens.css custom properties) precisely because
+   they are NOT this site's design tokens — see the file header note.
+--------------------------------------------------------------------- */
+.screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #000000;
+}
+
+.header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-3) var(--space-2);
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.backChevron {
+  width: 9px;
+  height: 9px;
+  border-left: 1.5px solid #ffffff;
+  border-bottom: 1.5px solid #ffffff;
+  transform: rotate(45deg);
+}
+
+.headerUsername {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: var(--fw-medium);
+  color: #ffffff;
+}
+
+.messageArea {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  overflow: hidden;
+}
+
+.bubbleRowLeft,
+.bubbleRowRight {
+  display: flex;
+  min-height: 28px;
+}
+
+.bubbleRowLeft {
+  justify-content: flex-start;
+}
+
+.bubbleRowRight {
+  justify-content: flex-end;
+}
+
+.bubble {
+  max-width: 75%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.bubbleLeft {
+  background-color: #262626;
+  color: #ffffff;
+  border-bottom-left-radius: 4px;
+}
+
+.bubbleRight {
+  background-color: #3797f0;
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+}
+
+/* ---------------------------------------------------------------------
+   Typing indicator — slow opacity pulse, deliberately not the bouncy
+   dot animation real Instagram uses (Sec. 5.3 bans bounce/spring easing
+   site-wide; this is the one place that rule would otherwise be broken).
+--------------------------------------------------------------------- */
+.typingIndicator {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 14px;
+  border-radius: 18px;
+  background-color: #262626;
+  border-bottom-left-radius: 4px;
+}
+
+.typingDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #8e8e8e;
+  animation: typingPulse 1.6s ease-in-out infinite;
+}
+
+.typingDot:nth-child(2) {
+  animation-delay: 0.25s;
+}
+
+.typingDot:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+@keyframes typingPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Instagram DM details — compact so they remain legible inside Story Two. */
+.phoneFrame {
+  border: 2px solid #343434;
+  border-radius: 30px;
+  box-shadow: 0 18px 38px rgb(0 0 0 / 45%);
+}
+
+.phoneNotch {
+  top: 0;
+  width: 38%;
+  height: 14px;
+}
+
+.phoneHomeIndicator {
+  bottom: 5px;
+  width: 30%;
+}
+
+.phoneScreenWindow {
+  border-radius: 20px;
+}
+
+.header {
+  gap: 7px;
+  min-height: 48px;
+  padding: 17px 9px 7px;
+  border-bottom-color: #262626;
+}
+
+.backChevron {
+  width: 10px;
+  height: 10px;
+  margin-left: 3px;
+  border-width: 0 0 2px 2px;
+}
+
+.headerAvatar {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #feda75, #d62976 52%, #4f5bd5);
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-size: 0.625rem;
+  font-weight: 700;
+}
+
+.headerIdentity {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.headerUsername {
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  font-size: 0.625rem;
+  font-weight: 700;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.headerStatus {
+  font-family: Arial, sans-serif;
+  font-size: 0.48rem;
+  line-height: 1;
+  color: #a8a8a8;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding-right: 2px;
+}
+
+.headerIcon {
+  position: relative;
+  display: block;
+  width: 13px;
+  height: 13px;
+}
+
+.callIcon::before {
+  position: absolute;
+  inset: 2px 3px;
+  border: 1.5px solid #ffffff;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  border-radius: 7px 2px 7px 5px;
+  content: '';
+  transform: rotate(-42deg);
+}
+
+.videoIcon {
+  width: 15px;
+  height: 10px;
+  border: 1.5px solid #ffffff;
+  border-radius: 3px;
+}
+
+.videoIcon::after {
+  position: absolute;
+  top: 2px;
+  right: -5px;
+  width: 4px;
+  height: 5px;
+  border: 1.5px solid #ffffff;
+  border-left: 0;
+  border-radius: 0 2px 2px 0;
+  content: '';
+}
+
+.messageArea {
+  gap: 5px;
+  padding: 8px;
+}
+
+.bubbleRowLeft,
+.bubbleRowRight {
+  min-height: 22px;
+}
+
+.bubble {
+  margin: 0;
+  padding: 7px 10px;
+  border-radius: 16px;
+  font-family: Arial, sans-serif;
+  font-size: 0.6rem;
+  line-height: 1.25;
+}
+
+.bubbleRight {
+  background-color: #0095f6;
+}
+
+.typingIndicator {
+  gap: 3px;
+  padding: 7px 10px;
+  border-radius: 16px;
+}
+
+.typingDot {
+  width: 4px;
+  height: 4px;
+}
+
+.composer {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 6px;
+  margin: 0 7px 8px;
+  padding: 5px 7px;
+  border: 1px solid #363636;
+  border-radius: 16px;
+  color: #f5f5f5;
+}
+
+.composerInput {
+  flex: 1;
+  font-family: Arial, sans-serif;
+  font-size: 0.54rem;
+  color: #8e8e8e;
+}
+
+.composerIcon {
+  position: relative;
+  display: block;
+  width: 11px;
+  height: 11px;
+  flex: 0 0 auto;
+}
+
+.cameraIcon {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #0095f6;
+}
+
+.cameraIcon::before {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 5px;
+  height: 4px;
+  border: 1px solid #ffffff;
+  border-radius: 1px;
+  content: '';
+}
+
+.cameraIcon::after {
+  position: absolute;
+  top: 5px;
+  left: 6px;
+  width: 2px;
+  height: 2px;
+  border: 1px solid #ffffff;
+  border-radius: 50%;
+  content: '';
+}
+
+.photoIcon {
+  border: 1px solid #f5f5f5;
+  border-radius: 2px;
+}
+
+.photoIcon::after {
+  position: absolute;
+  right: 1px;
+  bottom: 1px;
+  left: 1px;
+  height: 5px;
+  border-top: 1px solid #f5f5f5;
+  content: '';
+  transform: skewY(-32deg);
+}
+
+.micIcon {
+  width: 7px;
+  height: 10px;
+  border: 1px solid #f5f5f5;
+  border-radius: 5px;
+}
+
+.micIcon::after {
+  position: absolute;
+  bottom: -3px;
+  left: 2px;
+  width: 1px;
+  height: 3px;
+  background-color: #f5f5f5;
+  content: '';
+}
+
+.heartIcon::before,
+.heartIcon::after {
+  position: absolute;
+  top: 1px;
+  width: 6px;
+  height: 9px;
+  border: 1px solid #f5f5f5;
+  border-bottom: 0;
+  border-radius: 6px 6px 0 0;
+  content: '';
+}
+
+.heartIcon::before {
+  left: 1px;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.heartIcon::after {
+  right: 1px;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}

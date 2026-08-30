@@ -1,0 +1,130 @@
+/*
+  GLOBAL BASE STYLES — Milestone 2
+
+  Import order matters: tokens first (defines every custom property this
+  file and every section will consume), then the reset/base rules below.
+  Sections do NOT import tokens.css themselves — it's loaded once here,
+  at the root, and every CSS Module relies on the custom properties
+  already being in scope via :root.
+*/
+@import './tokens.css';
+
+/* ---------------------------------------------------------------------
+   Reset
+--------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Root font-size stays the browser default (16px) — every type token
+     is expressed in rem against this, per Sec. 3.2. */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* ---------------------------------------------------------------------
+   Base typography
+   Heading elements are reset to zero margin — every section controls
+   its own spacing explicitly via the --space-* tokens rather than
+   relying on browser default heading margins (Sec. 4).
+--------------------------------------------------------------------- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  line-height: var(--lh-chapter-title);
+}
+
+body,
+p {
+  line-height: var(--lh-body-story);
+}
+
+/* ---------------------------------------------------------------------
+   Selection & focus
+   A visible, on-brand focus ring is a quality-floor requirement — never
+   removed, only restyled. Selection tint uses the gold accent sparingly,
+   consistent with Sec. 2.2 ("gold is a spice, not a base").
+--------------------------------------------------------------------- */
+::selection {
+  background-color: var(--color-gold);
+  color: var(--color-black);
+}
+
+:focus-visible {
+  outline: 1px solid var(--color-gold);
+  outline-offset: 4px;
+}
+
+/* ---------------------------------------------------------------------
+   Reduced motion
+   Global, last-resort safety net. Section-specific GSAP/R3F timelines
+   (built in later milestones) each check prefers-reduced-motion directly
+   via the useReducedMotion hook (Milestone 3) for finer control; this
+   rule guarantees that even CSS-only transitions never violate the
+   preference if a component ever adds one without consulting the hook.
+--------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

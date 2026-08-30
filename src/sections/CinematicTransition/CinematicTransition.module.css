@@ -1,0 +1,170 @@
+/*
+  Chapter 2 — Cinematic Transition. Every color, font, size, and spacing
+  value below reads from tokens.css. Placeholder depth cues use
+  color-mix() against existing tokens rather than introducing any new
+  hardcoded hex value.
+*/
+
+.stage {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--color-black);
+}
+
+/* Backdrop overlay that darkens the outgoing Hero portrait/ocean */
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.0);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Subtle warm radial glow behind the typography */
+.glow {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  transform: translate(-40%, -50%);
+  width: 38vw;
+  height: 28vh;
+  pointer-events: none;
+  z-index: 4;
+  background: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--color-gold) 6%, transparent) 0%, transparent 60%);
+  opacity: 0;
+  filter: blur(18px);
+}
+
+.depthLayer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Three depth variants — differentiated only by a faint gold-tinted
+   vignette intensity, standing in for real photography until it exists
+   (same honest-placeholder pattern as Hero/PortraitFrame.jsx). */
+.depthLayerBack {
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in srgb, var(--color-gold) 6%, transparent) 0%,
+    var(--color-black) 70%
+  );
+}
+
+.depthLayerMid {
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in srgb, var(--color-gold) 10%, transparent) 0%,
+    var(--color-black) 65%
+  );
+}
+
+.depthLayerFront {
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in srgb, var(--color-gold) 16%, transparent) 0%,
+    var(--color-black) 60%
+  );
+}
+
+.depthLayerLabel {
+  font-family: var(--font-sans);
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-caption);
+  color: var(--color-ink-muted);
+  opacity: 0.4;
+  text-transform: uppercase;
+}
+
+.typeLine {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-subtitle);
+  line-height: var(--lh-subtitle);
+  color: var(--color-white);
+  text-align: center;
+  max-width: var(--measure-body);
+  padding: 0 var(--grid-margin-desktop);
+}
+
+/* Beginning content — editorial label + three small lines */
+.beginContent {
+  position: absolute;
+  left: 44%;
+  top: 44%;
+  transform: translate(-40%, -40%);
+  z-index: 5;
+  color: var(--color-white);
+  pointer-events: none;
+}
+
+.beginLabel {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: calc(var(--fs-caption) * 0.95);
+  letter-spacing: var(--ls-caption);
+  color: var(--color-gold);
+  text-transform: uppercase;
+  opacity: 0;
+}
+
+.beginLines {
+  margin-top: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space-4) * 0.6);
+}
+
+.beginLine {
+  font-family: var(--font-display);
+  font-size: 56px;
+  line-height: 1.4;
+  letter-spacing: var(--ls-cover-title);
+  color: var(--color-white);
+  opacity: 0;
+  display: block;
+}
+
+/* Milestone 15 — Sec. 10 responsive pass. Values must stay numerically
+   identical to --breakpoint-tablet/--breakpoint-desktop in tokens.css;
+   @media conditions can't read CSS custom properties directly. */
+@media (max-width: 1439px) {
+  .typeLine {
+    padding: 0 var(--grid-margin-tablet);
+  }
+
+  .beginContent {
+    left: 46%;
+    top: 46%;
+    transform: translate(-46%, -46%);
+  }
+
+  .beginLine {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  .typeLine {
+    padding: 0 var(--grid-margin-mobile);
+  }
+
+  .beginContent {
+    left: var(--grid-margin-mobile);
+    top: 36%;
+    transform: none;
+  }
+
+  .beginLine {
+    font-size: 28px;
+  }
+}

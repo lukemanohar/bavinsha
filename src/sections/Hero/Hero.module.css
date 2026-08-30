@@ -1,0 +1,208 @@
+/*
+  Chapter 1 — Hero. Every color, font, size, and spacing value below reads
+  from tokens.css — nothing here is a hardcoded hex/px/font value (Sec. 2-4).
+
+  Composition: a full-bleed portrait fills the entire viewport as the sole
+  background layer (Sec. 1.1, "one hero element per screen"). Text is
+  anchored off-center — a small label top-left, the main content block
+  bottom-left, the scroll cue bottom-right — rather than centered, per
+  Sec. 1.1's asymmetry principle. The content block's 60% max-width leaves
+  the right third of the frame as breathing negative space.
+*/
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+/* ---------------------------------------------------------------------
+   Portrait layer (background)
+--------------------------------------------------------------------- */
+.portraitLayer {
+  position: absolute;
+  inset: 0;
+}
+
+.portraitFrame {
+  position: absolute;
+  inset: 0;
+}
+
+.portraitImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.portraitPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-black);
+}
+
+.portraitPlaceholderLabel {
+  max-width: 320px;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-caption);
+  line-height: var(--lh-caption);
+  color: var(--color-ink-muted);
+  padding: var(--space-3);
+}
+
+/* Vignette — the one permitted gradient use per Sec. 2.2 (cinematic
+   framing / text legibility, never decorative fill). Darkens the lower
+   portion of the frame so white/gold text stays legible over any photo. */
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 5, 5, 0) 0%,
+    rgba(5, 5, 5, 0.1) 40%,
+    rgba(5, 5, 5, 0.82) 100%
+  );
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------
+   Foreground content
+--------------------------------------------------------------------- */
+.topMeta {
+  position: absolute;
+  top: var(--space-6);
+  left: var(--grid-margin-desktop);
+  right: var(--grid-margin-desktop);
+  z-index: 2;
+}
+
+.contentBlock {
+  position: absolute;
+  left: var(--grid-margin-desktop);
+  bottom: var(--space-7);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 60%;
+}
+
+.coverTitle {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-size: var(--fs-cover-title);
+  line-height: var(--lh-cover-title);
+  letter-spacing: var(--ls-cover-title);
+  font-weight: var(--fw-regular);
+  color: var(--color-white);
+}
+
+.titleLine {
+  display: block;
+}
+
+.titleChar {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}
+
+.subtitleDeck {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-subtitle);
+  line-height: var(--lh-subtitle);
+  letter-spacing: var(--ls-subtitle);
+  color: var(--color-muted);
+  max-width: var(--measure-body);
+}
+
+.issueLine {
+  font-family: var(--font-sans);
+  font-size: var(--fs-caption);
+  letter-spacing: var(--ls-caption);
+  line-height: var(--lh-caption);
+  color: var(--color-muted);
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------------------
+   Scroll cue — a thin line + tiny label, not an arrow icon (Sec. 8).
+   Static in this milestone; Milestone 5 adds its gentle animated pulse.
+--------------------------------------------------------------------- */
+.scrollCue {
+  position: absolute;
+  bottom: var(--space-5);
+  right: var(--grid-margin-desktop);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.scrollCueLine {
+  width: 1px;
+  height: 48px;
+  background-color: var(--color-gold);
+  opacity: 0.6;
+}
+
+.scrollCueLabel {
+  font-family: var(--font-sans);
+  font-size: var(--fs-nav);
+  letter-spacing: var(--ls-nav);
+  line-height: var(--lh-nav);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* ---------------------------------------------------------------------
+   Milestone 15 — Sec. 10 responsive pass. The composition itself
+   (full-bleed portrait, asymmetric off-center text) stays identical
+   across breakpoints — only the fixed desktop margin token and the
+   content block's 60%-of-viewport max-width (too narrow to hold real
+   text at these widths) change.
+--------------------------------------------------------------------- */
+@media (max-width: 1439px) {
+  .topMeta,
+  .scrollCue {
+    left: var(--grid-margin-tablet);
+    right: var(--grid-margin-tablet);
+  }
+
+  .contentBlock {
+    left: var(--grid-margin-tablet);
+    max-width: 75%;
+  }
+
+  .scrollCue {
+    right: var(--grid-margin-tablet);
+  }
+}
+
+@media (max-width: 767px) {
+  .topMeta {
+    left: var(--grid-margin-mobile);
+    right: var(--grid-margin-mobile);
+  }
+
+  .contentBlock {
+    left: var(--grid-margin-mobile);
+    right: var(--grid-margin-mobile);
+    bottom: var(--space-6);
+    max-width: none;
+  }
+
+  .scrollCue {
+    right: var(--grid-margin-mobile);
+  }
+}

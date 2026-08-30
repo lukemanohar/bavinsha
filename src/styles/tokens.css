@@ -1,0 +1,114 @@
+/*
+  DESIGN TOKENS — Milestone 2
+  Source of truth: design-blueprint.md, Sections 2 (Color), 3 (Typography),
+  4 (Grid & Spacing). Every value below is copied exactly from that locked
+  document. Nothing here is estimated or adjusted for "what looks nice" —
+  if a value needs to change, the blueprint changes first.
+
+  Consuming rule (project-wide, from here forward): no component or section
+  may hardcode a hex value, px size, or font-family. Everything reads from
+  these custom properties via var(--token-name).
+*/
+
+:root {
+  /* ---------------------------------------------------------------------
+     2. COLOR SYSTEM (Blueprint Sec. 2.1)
+  --------------------------------------------------------------------- */
+  --color-black: #050505;       /* primary background, ~80% of the site */
+  --color-ivory: #f6f3ed;       /* Letter chapter background, light accents */
+  --color-gallery: #fafaf8;     /* Editorial Gallery paper background */
+  --color-gold: #c6a86a;        /* accent only — max ~5% of any viewport */
+  --color-white: #ffffff;       /* primary text on black */
+  --color-muted: #b7b7b7;       /* secondary/body text on black */
+  --color-ink: #1a1714;         /* body text on ivory (Letter chapter) */
+  --color-ink-muted: #6b655c;   /* secondary text on ivory */
+
+  /* Soft-contrast text opacities (Sec. 2.2 — never pure 100/0 contrast) */
+  --text-on-black-opacity: 0.92;
+  --text-on-ivory-opacity: 0.95;
+
+  /* ---------------------------------------------------------------------
+     3. TYPOGRAPHY SYSTEM (Blueprint Sec. 3.1 / 3.2)
+     Licensed faces (Canela, Suisse Intl) listed first so swapping in the
+     purchased/self-hosted font files later requires no changes here —
+     only adding @font-face rules in global.css and dropping files in
+     assets/fonts/. Until then, the documented fallbacks render the site.
+  --------------------------------------------------------------------- */
+  --font-display: 'Canela', 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-sans: 'Suisse Intl', 'Neue Haas Grotesk', 'Inter', sans-serif;
+
+  /* Type scale — fluid via clamp(), values match Sec. 3.2 table exactly */
+  --fs-cover-title: clamp(4.5rem, 12vw, 11rem);
+  --fs-chapter-title: clamp(2.5rem, 6vw, 5.5rem);
+  --fs-editorial-label: 0.75rem;
+  --fs-subtitle: clamp(1.25rem, 2vw, 1.75rem);
+  --fs-body-story: 1.0625rem;
+  --fs-body-letter: clamp(1.25rem, 2vw, 1.5rem);
+  --fs-caption: 0.8125rem;
+  --fs-nav: 0.6875rem;
+
+  /* Letter-spacing (tracking) per role */
+  --ls-cover-title: -0.02em;
+  --ls-chapter-title: -0.01em;
+  --ls-editorial-label: 0.28em;
+  --ls-subtitle: 0em;
+  --ls-body-story: 0em;
+  --ls-body-letter: 0.01em;
+  --ls-caption: 0.04em;
+  --ls-nav: 0.2em;
+
+  /* Line-height (leading) per role */
+  --lh-cover-title: 0.9;
+  --lh-chapter-title: 0.95;
+  --lh-editorial-label: 1.4;
+  --lh-subtitle: 1.3;
+  --lh-body-story: 1.7;
+  --lh-body-letter: 1.85;
+  --lh-caption: 1.5;
+  --lh-nav: 1;
+
+  /* Weight per role */
+  --fw-regular: 400;
+  --fw-medium: 500;
+
+  /* Body copy measure — editorial column width (Sec. 3.3) */
+  --measure-body: 42ch;
+  --measure-body-min: 38ch;
+
+  /* ---------------------------------------------------------------------
+     4. GRID & SPACING SYSTEM (Blueprint Sec. 4.1 / 4.2)
+  --------------------------------------------------------------------- */
+  --grid-columns-desktop: 12;
+  --grid-columns-tablet: 8;
+  --grid-columns-mobile: 4;
+
+  --grid-max-width: 1440px;
+
+  --grid-margin-desktop: 80px;
+  --grid-gutter-desktop: 24px;
+
+  --grid-margin-tablet: 48px;
+  --grid-gutter-tablet: 20px;
+
+  --grid-margin-mobile: 24px;
+  --grid-gutter-mobile: 16px;
+
+  /* Spacing scale — 8px base unit, editorial multiplier for macro spacing */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 40px;
+  --space-5: 64px;
+  --space-6: 96px;
+  --space-7: 160px;
+  --space-8: 240px;
+
+  /* ---------------------------------------------------------------------
+     Breakpoints (referenced by consuming CSS Modules via media queries;
+     CSS cannot interpolate custom properties inside @media conditions, so
+     these also live in utils/breakpoints.js as JS constants of the same
+     values for any JS-driven responsive logic in later milestones).
+  --------------------------------------------------------------------- */
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1440px;
+}
