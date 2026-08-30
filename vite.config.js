@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react-swc'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/bavinsha/',
   plugins: [react()],
   assetsInclude: ['**/*.JPG'],
   server: {
